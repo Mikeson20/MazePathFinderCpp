@@ -51,10 +51,10 @@ int main()
         cout << "Maze 2 enter: 2" << endl;
         cin >> inC;
         if(inC == 1){
-            m = "maze01.txt";
+            m = "Maze/maze01.txt";
             menuClose = 1;
         }else if(inC == 2){
-            m = "maze02.txt";
+            m = "Maze/maze02.txt";
             menuClose = 1;
         }else{
             cout << "Bad Selection" << endl;
@@ -144,15 +144,15 @@ int main()
         moveAgent();
         //shut it down as path stack is empty catch crash??????
         if(agentsPath.isEmptyStack() == 1){
-            cout << "About to stop may crash if not enter: 1 | or continue enter: 0" << endl;
+            cout << "Agent path stack is empty\nAbout to stop may crash if not enter: 1 | or continue enter: 0" << endl;
             cin >> inC;
             stop = inC;
-        }else if(agent_X == startPoint_X && agent_Y == startPoint_Y){
-            cout << "About to stop may crash if not enter: 1 | or continue enter: 0" << endl;
+        }else if( (agent_X == startPoint_X) && (agent_Y == startPoint_Y) ){
+            cout << "At start point.\nAbout to stop may crash if not enter: 1 | or continue enter: 0" << endl;
             cin >> inC;
             stop = inC;
         }else{
-            Sleep(20);
+            Sleep(10);
             system("cls");
         }
     }
@@ -164,7 +164,6 @@ int main()
         }
     free(outside);
     ////////////////////////////////////////////////////////////////
-
     return 0;
 }
 
@@ -300,7 +299,7 @@ void moveAgent(){
     //}
 
 
-    if( (outside[xT-1][yT] == 1) && (xT-1 >= 0) ){       //can go north
+    if( (xT-1 >= 0) && (outside[xT-1][yT] == 1) ){       //can go north
         r = av.searchLinkedList(xT-1, yT);
         //cout << "Visited: xT-1: " << xT-1 << " yT: " << yT << " r: " << r << endl;
         if( r != 1 )
@@ -314,7 +313,7 @@ void moveAgent(){
             noMove = 1;
         }
     }
-    if( (outside[xT][yT+1] == 1) && (yT+1 <= yM) ){  //can go east
+    if( (yT+1 < yM) && (outside[xT][yT+1] == 1)  ){  //can go east
         r =av.searchLinkedList(xT, yT+1);
         //cout << "Visited: xT: " << xT << " yT+1: " << yT+1 << " r: " << r << endl;
         if( r != 1 )
@@ -328,7 +327,7 @@ void moveAgent(){
             noMove = 1;
         }
     }
-    if( (outside[xT][yT-1] == 1) && (yT+1 >= 0) ){   //can go west
+    if( (yT-1 >= 0) && (outside[xT][yT-1] == 1) ){   //can go west
         r = av.searchLinkedList(xT, yT-1);
         //cout << "Visited: xT: " << xT << " yT-1: " << yT-1 << " r: " << r << endl;
         if( r != 1)
@@ -342,7 +341,7 @@ void moveAgent(){
             noMove = 1;
         }
     }
-    if( (outside[xT+1][yT] == 1) && (xT-1 <= xM)  ){ //can go south
+    if( (xT+1 < xM) && (outside[xT+1][yT] == 1) ){ //can go south
         r = av.searchLinkedList(xT+1, yT);
         //cout << "Visited: xT+1: " << xT+1 << " yT: " << yT<< " r: " << r << endl;
         if( r != 1)
@@ -358,13 +357,15 @@ void moveAgent(){
     }
 
     if(noMove == 1){
-        agentsPath.pop();
-        check_top = agentsPath.top();
-        xtp = check_top->xP;
-        ytp = check_top->yP;
-        //cout << "Checking Top: " << xtp << " : " << ytp << endl;
-        agent_X = xtp;
-        agent_Y = ytp;
+        if(agentsPath.isEmptyStack() != 1){
+            agentsPath.pop();
+            check_top = agentsPath.top();
+            xtp = check_top->xP;
+            ytp = check_top->yP;
+            //cout << "Checking Top: " << xtp << " : " << ytp << endl;
+            agent_X = xtp;
+            agent_Y = ytp;
+        }
     }
 
     moving:;
