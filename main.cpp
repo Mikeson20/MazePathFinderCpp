@@ -359,7 +359,7 @@ void moveAgent(){
     if(noMove == 1){
         if(agentsPath.isEmptyStack() != 1){
             agentsPath.pop();
-            check_top = agentsPath.top();
+            check_top = agentsPath.top();	//THIS MAYBE CAUSE THE CARSH. IF POPS LAST ONE TOP WILL BE NULL.
             xtp = check_top->xP;
             ytp = check_top->yP;
             //cout << "Checking Top: " << xtp << " : " << ytp << endl;
