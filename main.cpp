@@ -51,10 +51,10 @@ int main()
         cout << "Maze 2 enter: 2" << endl;
         cin >> inC;
         if(inC == 1){
-            m = "Maze/maze01.txt";
+            m = "maze01.txt";
             menuClose = 1;
         }else if(inC == 2){
-            m = "Maze/maze02.txt";
+            m = "maze02.txt";
             menuClose = 1;
         }else{
             cout << "Bad Selection" << endl;
