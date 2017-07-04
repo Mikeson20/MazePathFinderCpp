@@ -45,13 +45,12 @@ void Agent_Stack::pop()
 
 Stack_Node* Agent_Stack::top()
 {
-    assert(stack_top != NULL);
-  //  if(stack_top == NULL){
-  //      return NULL;
-  //  }
-  //  else{
-         return stack_top;
-   // }
+    //assert(stack_top != NULL);
+    if(stack_top == NULL){
+	return NULL;
+    } else{
+	return stack_top;
+    }
 }
 
  int Agent_Stack::searchPathStack(int xS, int yS)
